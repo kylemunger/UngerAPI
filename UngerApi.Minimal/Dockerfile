@@ -7,10 +7,9 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
-COPY ["UngerApi.Minimal/UngerApi.Minimal.csproj", "UngerApi.Minimal/"]
-RUN dotnet restore "UngerApi.Minimal/UngerApi.Minimal.csproj"
+COPY ["UngerApi.Minimal.csproj", "."]
+RUN dotnet restore "UngerApi.Minimal.csproj"
 COPY . .
-WORKDIR "/src/UngerApi.Minimal"
 RUN dotnet build "UngerApi.Minimal.csproj" -c Release -o /app/build
 
 FROM build AS publish
