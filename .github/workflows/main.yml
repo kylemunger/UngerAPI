@@ -24,12 +24,19 @@ jobs:
         username: _json_key
         password: ${{ secrets.GCLOUD_SERVICE_ACCOUNT_KEY }}
 
-    - name: Build and push Docker image
+    - name: Build and push minimal api Docker image
       uses: docker/build-push-action@v4
       with:
         context: ./UngerApi.Minimal/
         push: true
         tags: gcr.io/${{ vars.GKE_PROJECT}}/ungerapi:latest
+
+    - name: Build and push grpc service Docker image
+      uses: docker/build-push-action@v4
+      with:
+        context: ./UngerApi.gRPC/
+        push: true
+        tags: gcr.io/${{ vars.GKE_PROJECT}}/jobworker:latest
 
     - id: 'auth'
       uses: 'google-github-actions/auth@v1'
@@ -52,6 +59,5 @@ jobs:
     - name: Deploy to GKE
       run: |-
         gcloud container clusters get-credentials ${{ vars.GKE_CLUSTER }} --zone ${{ vars.GKE_ZONE }}
-        kubectl apply -f ./UngerApi.Minimal/deploy.yml
-
-    
+        kubectl apply -f ./k8s/deploy-minimal.yml
+        kubectl apply -f ./k8s/deploy-grpc.yml
