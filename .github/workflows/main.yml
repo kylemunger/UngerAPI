@@ -27,7 +27,7 @@ jobs:
     - name: Build and push Docker image
       uses: docker/build-push-action@v2
       with:
-        context: /UngerApi.Minimal/.
+        context: ./UngerApi.Minimal/
         push: true
         tags: grc.io/${{ vars.GKE_PROJECT}}/ungerapi:latest
 
