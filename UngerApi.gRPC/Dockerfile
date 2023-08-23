@@ -7,10 +7,9 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
-COPY ["UngerApi.gRPC/UngerApi.gRPC.csproj", "UngerApi.gRPC/"]
-RUN dotnet restore "UngerApi.gRPC/UngerApi.gRPC.csproj"
+COPY ["UngerApi.gRPC.csproj", "."]
+RUN dotnet restore "UngerApi.gRPC.csproj"
 COPY . .
-WORKDIR "/src/UngerApi.gRPC"
 RUN dotnet build "UngerApi.gRPC.csproj" -c Release -o /app/build
 
 FROM build AS publish
