@@ -52,6 +52,6 @@ jobs:
     - name: Deploy to GKE
       run: |-
         gcloud container clusters get-credentials ${{ vars.GKE_CLUSTER }} --zone ${{ vars.GKE_ZONE }}
-        kubectl apply -f ./UngerApi.Minimal/deploy.yaml
+        kubectl apply -f ./UngerApi.Minimal/deploy.yml
 
     
