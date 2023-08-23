@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+option csharp_namespace = "GrpcJobSchedulerClient";
+
+package jobscheduler;
+
+// The greeting service definition.
+service JobScheduler {
+  // Sends a greeting
+  rpc ScheduleJob (JobRequest) returns (JobResponse);
+}
+
+// The request message containing the user's name.
+message JobRequest {
+  string name = 1;
+}
+
+// The response message containing the greetings.
+message JobResponse {
+  int32 job_id = 1;
+  string status = 2;
+}
