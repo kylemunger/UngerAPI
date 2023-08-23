@@ -61,3 +61,5 @@ jobs:
         gcloud container clusters get-credentials ${{ vars.GKE_CLUSTER }} --zone ${{ vars.GKE_ZONE }}
         kubectl apply -f ./k8s/deploy-minimal.yml
         kubectl apply -f ./k8s/deploy-grpc.yml
+        kubectl rollout restart deployment ungerapi-deployment
+        kubectl rollout restart deployment jobworker-deployment
